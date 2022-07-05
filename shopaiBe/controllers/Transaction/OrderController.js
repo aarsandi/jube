@@ -256,6 +256,8 @@ class OrderController {
                                 resStockChange.push({
                                     action: 'stock_decrement',
                                     ItemId: item.ItemId,
+                                    ItemStockWarehouseId : itemStock.id,
+                                    ItemStockInfoId: findStockInfo?findStockInfo.id:null,
                                     qty: itemStock.qty
                                 })
                                 resReducedStock.push({
@@ -273,6 +275,8 @@ class OrderController {
                                 resStockChange.push({
                                     action: 'stock_decrement',
                                     ItemId: item.ItemId,
+                                    ItemStockWarehouseId : itemStock.id,
+                                    ItemStockInfoId: findStockInfo?findStockInfo.id:null,
                                     qty: qtyRealRemaining
                                 })
                                 resReducedStock.push({
@@ -291,7 +295,6 @@ class OrderController {
 
                 // stok array yang berkurang
                 itemStockChange(resStockChange)
-                console.log(resStockChange, "dsadwad")
 
                 // generate refid and dueDate 1 day
                 let genTimeNow = new Date()

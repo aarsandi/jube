@@ -237,6 +237,7 @@ class OrderController {
                     }
                 }
 
+                const resStockChange = [];
                 const resReducedStock = [];
                 for await (let item of reducedItemsTemp) {
                     const findStockWarehouse = await ItemStockWarehouse.findAll({where: { ItemId:item.ItemId, warehouseId: 3, qty: { [Op.gt]: 0 } }})
@@ -250,7 +251,14 @@ class OrderController {
                                     await findStockInfo.update({ qty: 0 }, {transaction:t})
                                 }
                                 await itemStock.update({qty: 0}, { transaction:t });
-                                
+
+                                resStockChange.push({
+                                    action: 'stock_decrement',
+                                    ItemId: item.ItemId,
+                                    ItemStockWarehouseId : itemStock.id,
+                                    ItemStockInfoId: findStockInfo?findStockInfo.id:null,
+                                    qty: itemStock.qty
+                                })
                                 resReducedStock.push({
                                     ItemId: item.ItemId,
                                     ItemStockWarehouseId : itemStock.id,
@@ -263,6 +271,14 @@ class OrderController {
                                     await findStockInfo.update({ qty: itemStock.qty-qtyRealRemaining }, {transaction:t})
                                 }
                                 await itemStock.update({qty: itemStock.qty-qtyRealRemaining}, { transaction:t });
+
+                                resStockChange.push({
+                                    action: 'stock_decrement',
+                                    ItemId: item.ItemId,                                    
+                                    ItemStockWarehouseId : itemStock.id,
+                                    ItemStockInfoId: findStockInfo?findStockInfo.id:null,
+                                    qty: qtyRealRemaining
+                                })
                                 resReducedStock.push({
                                     ItemId: item.ItemId,
                                     ItemStockWarehouseId : itemStock.id,
@@ -276,6 +292,9 @@ class OrderController {
                         throw new Error('item stock is empty');
                     }
                 }
+                
+                // stok array yang berkurang
+                itemStockChange(resStockChange)
 
                 // generate refid and dueDate 1 day
                 let genTimeNow = new Date()

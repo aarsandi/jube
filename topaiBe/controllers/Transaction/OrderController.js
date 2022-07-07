@@ -4,6 +4,8 @@ const {
     ItemConversionUnit, MasterItem_dropdown, ItemStockWarehouse
 } = require("../../models/index");
 
+const { itemStockChange } = require("../../helpers/webhook");
+
 const tax_order = process.env.TAX_ORDER;
 const percentage = `${Number(tax_order)*100}%`;
 const Op = Sequelize.Op;
@@ -251,14 +253,6 @@ class OrderController {
                                     await findStockInfo.update({ qty: 0 }, {transaction:t})
                                 }
                                 await itemStock.update({qty: 0}, { transaction:t });
-
-                                resStockChange.push({
-                                    action: 'stock_decrement',
-                                    ItemId: item.ItemId,
-                                    ItemStockWarehouseId : itemStock.id,
-                                    ItemStockInfoId: findStockInfo?findStockInfo.id:null,
-                                    qty: itemStock.qty
-                                })
                                 resReducedStock.push({
                                     ItemId: item.ItemId,
                                     ItemStockWarehouseId : itemStock.id,
@@ -271,14 +265,6 @@ class OrderController {
                                     await findStockInfo.update({ qty: itemStock.qty-qtyRealRemaining }, {transaction:t})
                                 }
                                 await itemStock.update({qty: itemStock.qty-qtyRealRemaining}, { transaction:t });
-
-                                resStockChange.push({
-                                    action: 'stock_decrement',
-                                    ItemId: item.ItemId,                                    
-                                    ItemStockWarehouseId : itemStock.id,
-                                    ItemStockInfoId: findStockInfo?findStockInfo.id:null,
-                                    qty: qtyRealRemaining
-                                })
                                 resReducedStock.push({
                                     ItemId: item.ItemId,
                                     ItemStockWarehouseId : itemStock.id,
@@ -288,6 +274,11 @@ class OrderController {
                                 break
                             }
                         }
+                        resStockChange.push({
+                            action: 'stock_decrement',
+                            ItemId: item.ItemId,
+                            qty: item.reducedQty
+                        })
                     }else{
                         throw new Error('item stock is empty');
                     }
@@ -327,6 +318,7 @@ class OrderController {
                 await OrderItem.bulkCreate(resOrderItem, { transaction: t })
                 
                 await t.commit();
+                // await t.rollback();
 
                 res.status(201).json({
                     message: "success",

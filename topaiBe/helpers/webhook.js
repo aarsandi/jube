@@ -1,31 +1,25 @@
-
+const { App } = require("../models/index");
 const axios = require('axios').default;
 
 class Webhook {
     static itemStockChange(data) {
-        // setTimeout(() => {
-        //     console.log(data, "result solved")
-        // }, 4000);
-        axios.post('http://localhost:8000/stok_decrement', {
-            data: data
+        console.log(data, "topai")
+        App.findAll({raw : true})
+        .then(data => {
+            if(data){
+                for (let el of data) {
+                    axios.post(el.stockChange, {
+                        data: data
+                    })
+                    .then(_ => {
+                        // console.log("");
+                    })
+                    .catch(_ => {
+                        console.log("error webhook decrease");
+                    });
+                }
+            }
         })
-        // .then(function (response) {
-        //     console.log(response, "dsadwad");
-        // })
-        // .catch(function (error) {
-        //     console.log(error, "dsadwadwa");
-        // });
-        // return new Promise(_ => {
-        //     axios.post('http://localhost:8000/stok_decrement', {
-        //         data: data[0]
-        //     }).then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error.response);
-        //     });
-            
-        // });
     }
 }
 

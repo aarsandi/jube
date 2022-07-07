@@ -1,4 +1,4 @@
-const { Item, ItemCategory, ItemMedicineInfo, ItemConversionUnit, ItemStockInfo, Sequelize } = require("../../models/index");
+const { Item, ItemCategory, ItemMedicineInfo, ItemConversionUnit, ItemStockInfo, ItemStockWarehouse, Sequelize, sequelize } = require("../../models/index");
 const Op = Sequelize.Op;
 
 class ItemController {
@@ -262,6 +262,95 @@ class ItemController {
             next(err)
         }
         
+    }
+
+    static async updateStok(req, res, next) {
+        const t = await sequelize.transaction();
+        try {
+            const { items } = req.body
+            for await (let ele of items) {
+                let findItem = await Item.findOne({
+                    where: { id: ele.ItemId },
+                    attributes: { exclude: ['updatedAt'] },
+                    include: [
+                        { model: ItemStockWarehouse, attributes: ['id','ItemId', 'qty', 'expiredDate'],
+                            required: false,
+                            where: {
+                                warehouseId: 3,
+                                expiredDate: {
+                                    [Op.or]: [
+                                        { [Op.gte]: new Date() }, { [Op.eq]: null }
+                                    ]
+                                },
+                                qty: {
+                                    [Op.gt]: 0
+                                }
+                            },
+                        }
+                    ],
+                    order: [
+                        [sequelize.models.ItemStockWarehouse, 'expiredDate', 'ASC']
+                    ],
+                });
+                if(findItem) {
+                    let dataTemp = findItem.toJSON();
+                    if(dataTemp.ItemStockWarehouses.length) {
+                        dataTemp.totalQty = dataTemp.ItemStockWarehouses.reduce( function(a, b) {
+                            return a + b.qty;
+                        }, 0);
+                    }else{
+                        throw new Error('data item stock is empty');
+                    }
+                    // console.log(findItem)
+                    // console.log(findItem.ItemStockWarehouses[0].qty)
+                    if(ele.action == 'stock_decrement') {
+                        if(dataTemp.totalQty >= ele.qty) {
+                            let qtyRealRemaining = ele.qty || 0;
+                            for await (let elStock of findItem.ItemStockWarehouses) {
+                                let qtyRemain = qtyRealRemaining - elStock.qty
+                                const findStockInfo = await ItemStockInfo.findOne({where: { ItemId: ele.ItemId, qty: elStock.qty}})
+                                
+                                if(qtyRemain>0) {
+                                    if(findStockInfo) {
+                                        await findStockInfo.update({ qty: 0 }, {transaction:t})
+                                    }
+                                    await elStock.update({qty: 0}, { transaction:t });
+                                    qtyRealRemaining -= item.qty
+                                } else {
+                                    if(findStockInfo) {
+                                        await findStockInfo.update({ qty: elStock.qty-qtyRealRemaining }, {transaction:t})
+                                    }
+                                    await elStock.update({qty: elStock.qty-qtyRealRemaining}, { transaction:t });
+                                    break
+                                }
+                            }
+                        }else{
+                            throw new Error('item stock is not enough');
+                        }
+                    }else{
+                        const findStockInfo = await ItemStockInfo.findOne({where: { ItemId: ele.ItemId, qty: findItem.ItemStockWarehouses[0].qty}})
+                                
+                        if(findStockInfo) {
+                            await findStockInfo.update({
+                                qty: findItem.ItemStockWarehouses[0].qty+ele.qty
+                            }, {transaction:t})
+                        }
+                        await findItem.ItemStockWarehouses[0].update({
+                            qty: findItem.ItemStockWarehouses[0].qty+ele.qty
+                        }, { transaction:t });
+                    }
+                }else{
+                    throw new Error('data not found');
+                }
+            }
+            await t.commit();
+            res.status(201).json({
+                message: "success"
+            })
+        } catch(err) {
+            await t.rollback();
+            next(err)
+        }
     }
 }
 

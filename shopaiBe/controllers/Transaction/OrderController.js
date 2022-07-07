@@ -252,14 +252,7 @@ class OrderController {
                                 if(findStockInfo) {
                                     await findStockInfo.update({ qty: 0 }, {transaction:t})
                                 }
-                                await itemStock.update({qty: 0}, { transaction:t });
-                                resStockChange.push({
-                                    action: 'stock_decrement',
-                                    ItemId: item.ItemId,
-                                    ItemStockWarehouseId : itemStock.id,
-                                    ItemStockInfoId: findStockInfo?findStockInfo.id:null,
-                                    qty: itemStock.qty
-                                })
+                                await itemStock.update({qty: 0}, { transaction:t });                                
                                 resReducedStock.push({
                                     ItemId: item.ItemId,
                                     ItemStockWarehouseId : itemStock.id,
@@ -272,13 +265,6 @@ class OrderController {
                                     await findStockInfo.update({ qty: itemStock.qty-qtyRealRemaining }, {transaction:t})
                                 }
                                 await itemStock.update({qty: itemStock.qty-qtyRealRemaining}, { transaction:t });
-                                resStockChange.push({
-                                    action: 'stock_decrement',
-                                    ItemId: item.ItemId,
-                                    ItemStockWarehouseId : itemStock.id,
-                                    ItemStockInfoId: findStockInfo?findStockInfo.id:null,
-                                    qty: qtyRealRemaining
-                                })
                                 resReducedStock.push({
                                     ItemId: item.ItemId,
                                     ItemStockWarehouseId : itemStock.id,
@@ -288,13 +274,15 @@ class OrderController {
                                 break
                             }
                         }
+                        resStockChange.push({
+                            action: 'stock_decrement',
+                            ItemId: item.ItemId,
+                            qty: item.reducedQty
+                        })
                     }else{
                         throw new Error('item stock is empty');
                     }
                 }
-
-                // stok array yang berkurang
-                itemStockChange(resStockChange)
 
                 // generate refid and dueDate 1 day
                 let genTimeNow = new Date()
@@ -325,8 +313,12 @@ class OrderController {
 
                 const resOrderItem = resItems.map(el => ({...el, OrderId: createOrder.id}))
                 await OrderItem.bulkCreate(resOrderItem, { transaction: t })
-                
-                await t.rollback();
+
+                // stok array yang berkurang
+                itemStockChange(resStockChange)
+
+                await t.commit();
+                // await t.rollback();
 
                 res.status(201).json({
                     message: "success",

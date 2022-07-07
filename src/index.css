@@ -8553,6 +8553,7 @@ p {
 
 #main-wrapper {
   opacity: 0;
+  min-height: 100vh;
   transition: all 0.25s ease-in;
   overflow: hidden;
   position: relative; }

@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import Homepage from './auth/Homepage'
+import Product from './auth/Product'
 import Login from './auth/Login'
 
 export default function MainRoute() {
@@ -18,6 +19,9 @@ export default function MainRoute() {
               </Route>
               <Route exact path="/">
                 <Homepage />
+              </Route>
+              <Route exact path="/products">
+                <Product />
               </Route>
               <Route path="*">
                 <h1>not found</h1>

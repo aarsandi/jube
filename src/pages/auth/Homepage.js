@@ -108,20 +108,20 @@ export default function Homepage() {
                 <div className="deznav-scroll">
                     <ul className="metismenu" id="menu">
                         <li className="nav-label first">Main Menu</li>
-                        <li>
+                        <li className="mm-active">
                             <a href="#" className="ai-icon" aria-expanded="false">
                                 <i className="flaticon-144-layout"></i>
                                 <span className="nav-text">Dashboard</span>
                             </a>
                         </li>
-                        <li>
+                        <li className="">
                             <a href="#" className="ai-icon" aria-expanded="false">
                                 <i className="flaticon-077-menu-1"></i>
-                                <span className="nav-text">Apps</span>
+                                <span className="nav-text">Products</span>
                             </a>
                         </li>
                         
-                        <li>
+                        {/* <li>
                             <a href="#" className="ai-icon" aria-expanded="false">
                                 <i className="flaticon-061-puzzle"></i>
                                 <span className="nav-text">Charts</span>
@@ -162,7 +162,7 @@ export default function Homepage() {
                                 <i className="flaticon-049-copy"></i>
                                 <span className="nav-text">Pages</span>
                             </a>
-                        </li>
+                        </li> */}
                     </ul>
                     <div className="copyright">
                         <p><strong>Jube Admin Dashboard</strong> © 2021 All Rights Reserved</p>

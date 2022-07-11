@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useToggleView from "../../Hooks/toggleView";
 
 export default function Homepage() {
   const [nav, setNav] = useState(true);
-  const [nav1, setNav1] = useState(true);
-  const [nav2, setNav2] = useState(true);
+  const toggleBarang = useToggleView(true);
+  const toggleUserProjects = useToggleView(true);
+  const toggleUserSidebar = useToggleView(true);
+
+  console.log("a");
 
   return (
     <div id="main-wrapper" className={nav ? "show" : "show menu-toggle"}>
@@ -64,8 +68,7 @@ export default function Homepage() {
       <div className="header">
         <div className="header-content">
           <nav className="navbar navbar-expand">
-            <div className="collapse navbar-collapse justify-content-between">
-            </div>
+            <div className="collapse navbar-collapse justify-content-between"></div>
           </nav>
           <div className="sub-header">
             <div className="d-flex align-items-center flex-wrap mr-auto">
@@ -101,32 +104,89 @@ export default function Homepage() {
                 <span className="nav-text">Products</span>
               </Link>
             </li>
-            
-            <li className={nav1 ? "" : "mm-active"} onClick={() => { setNav1(!nav1); }} >
-              <a className="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                <i className="flaticon-077-menu-1"></i> <span className="nav-text">Barang</span>
+
+            <li
+              className={toggleBarang.view ? "" : "mm-active"}
+              onClick={toggleBarang.onChange}
+            >
+              <a
+                className="has-arrow ai-icon"
+                href="javascript:void()"
+                aria-expanded="false"
+              >
+                <i className="flaticon-077-menu-1"></i>{" "}
+                <span className="nav-text">Barang</span>
               </a>
             </li>
             <li>
-              <ul aria-expanded="false"  className={nav1 ? "mm-collapse" : "mm-collapse mm-show"}>
-                  <li><a href="app-profile.html">Profile</a></li>
-                  <li className={nav2 ? "" : "mm-active"} onClick={() => { setNav2(!nav2); }} >
-                      <a className="has-arrow" href="javascript:void(0);" aria-expanded="false">Project<span className="badge badge-xs badge-danger">New</span></a>
-                      <ul aria-expanded="false" className={nav2 ? "left mm-collapse" : "left mm-collapse mm-show"} onClick={() => { setNav2(!nav2); }} >
-                          <li><a href="project-list.html">Project List</a></li>
-                          <li><a href="project-card.html">Project Card</a></li>
-                      </ul>
-                  </li>
+              <ul
+                aria-expanded="false"
+                className={
+                  toggleBarang.view ? "mm-collapse" : "mm-collapse mm-show"
+                }
+              >
+                <li>
+                  <a href="app-profile.html">Profile</a>
+                </li>
+                <li
+                  className={toggleUserProjects.view ? "" : "mm-active"}
+                  onClick={toggleUserProjects.onChange}
+                >
+                  <a
+                    className="has-arrow"
+                    href="javascript:void(0);"
+                    aria-expanded="false"
+                  >
+                    Project
+                    <span className="badge badge-xs badge-danger">New</span>
+                  </a>
+                  <ul
+                    aria-expanded="false"
+                    className={
+                      toggleUserProjects.view
+                        ? "left mm-collapse"
+                        : "left mm-collapse mm-show"
+                    }
+                    onClick={toggleUserProjects.onChange}
+                  >
+                    <li>
+                      <a href="project-list.html">Project List</a>
+                    </li>
+                    <li>
+                      <a href="project-card.html">Project Card</a>
+                    </li>
+                  </ul>
+                </li>
 
-                  <li className={nav2 ? "" : "mm-active"} onClick={() => { setNav2(!nav2); }} >
-                      <a className="has-arrow" href="javascript:void(0);" aria-expanded="false">User<span className="badge badge-xs badge-danger">New</span></a>
-                      <ul aria-expanded="false" className={nav2 ? "left mm-collapse" : "left mm-collapse mm-show"} >
-                          <li><a href="user-list-datatable.html">User List</a></li>
-                          <li><a href="user-list-column.html">User Card</a></li>
-                      </ul>
-                  </li>
+                <li
+                  className={toggleUserSidebar.view ? "" : "mm-active"}
+                  onClick={toggleUserSidebar.onChange}
+                >
+                  <a
+                    className="has-arrow"
+                    href="javascript:void(0);"
+                    aria-expanded="false"
+                  >
+                    User<span className="badge badge-xs badge-danger">New</span>
+                  </a>
+                  <ul
+                    aria-expanded="false"
+                    className={
+                      toggleUserSidebar.view
+                        ? "left mm-collapse"
+                        : "left mm-collapse mm-show"
+                    }
+                  >
+                    <li>
+                      <a href="user-list-datatable.html">User List</a>
+                    </li>
+                    <li>
+                      <a href="user-list-column.html">User Card</a>
+                    </li>
+                  </ul>
+                </li>
               </ul>
-          </li>
+            </li>
 
             <li className="">
               <Link
@@ -139,7 +199,6 @@ export default function Homepage() {
                 <span className="nav-text">Inventory</span>
               </Link>
             </li>
-
           </ul>
           <div className="copyright">
             <p>
@@ -156,6 +215,13 @@ export default function Homepage() {
         <div className="container-fluid">
           <div className="form-head mb-sm-5 mb-3 d-flex flex-wrap align-items-center">
             <h2 className="font-w600 title mb-2 mr-auto ">Dashboard</h2>
+            {/* <input
+              value={text}
+              onChange={(e) => {
+                e.preventDefault();
+                setText(e.target.value);
+              }}
+            /> */}
           </div>
           <div className="row">
             <div className="col-xl-9 col-xxl-8">

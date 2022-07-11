@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export default function Homepage() {
   const [nav, setNav] = useState(true);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   async function getData() {
     try {
@@ -17,6 +18,7 @@ export default function Homepage() {
       });
       const json = await res.json();
       setData(json.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -205,30 +207,54 @@ export default function Homepage() {
               <div class="card">
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table table-responsive-md">
-                      <thead>
-                        <tr>
-                          <th>
-                            <strong>#</strong>
-                          </th>
-                          <th>
-                            <strong>NAME</strong>
-                          </th>
-                          <th>
-                            <strong>STOCK</strong>
-                          </th>
-                        </tr>
-                      </thead>
-                      {data.map((datas, index) => (
-                        <tbody key={index}>
+                    {loading ? (
+                      <div
+                        style={{
+                          justifyContent: "center",
+                          alignItems: "center",
+                          flex: 1,
+                          display: "flex",
+                          flexDirection: "column",
+                          objectFit: "contain",
+                        }}
+                      >
+                        <img
+                          src={require("../../assets/Unknown.jpg")}
+                          style={{
+                            height: 200,
+                            width: 200,
+                            boxSizing: "border-box",
+                            resize: "block",
+                          }}
+                          alt="kus"
+                        />
+                        <h2>loading dek...jengkel saya</h2>
+                      </div>
+                    ) : (
+                      <table class="table table-responsive-md">
+                        <thead>
                           <tr>
-                            <td>
-                              <strong>{datas.id}</strong>
-                            </td>
-                            <td>{datas.name}</td>
-                            <td>{datas.stock}</td>
+                            <th>
+                              <strong>#</strong>
+                            </th>
+                            <th>
+                              <strong>NAME</strong>
+                            </th>
+                            <th>
+                              <strong>STOCK</strong>
+                            </th>
                           </tr>
-                          {/* <tr>
+                        </thead>
+                        {data.map((datas, index) => (
+                          <tbody key={index}>
+                            <tr>
+                              <td>
+                                <strong>{datas.id}</strong>
+                              </td>
+                              <td>{datas.name}</td>
+                              <td>{datas.stock}</td>
+                            </tr>
+                            {/* <tr>
                        <td>
                          <strong>02</strong>
                        </td>
@@ -242,9 +268,10 @@ export default function Homepage() {
                        <td>Product 03</td>
                        <td>5000</td>
                      </tr> */}
-                        </tbody>
-                      ))}
-                    </table>
+                          </tbody>
+                        ))}
+                      </table>
+                    )}
                   </div>
                 </div>
               </div>

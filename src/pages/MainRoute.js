@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Homepage from "./auth/Homepage";
 import Product from "./auth/Product";
 import Login from "./auth/Login";
+import Inventory from "./auth/Inventory";
 
 export default function MainRoute() {
   return (
@@ -11,6 +12,9 @@ export default function MainRoute() {
       <Switch>
         <Route exact path="/products">
           <Product />
+        </Route>
+        <Route path="/inventory">
+          <Inventory />
         </Route>
         <Route path="/login">
           <Login />

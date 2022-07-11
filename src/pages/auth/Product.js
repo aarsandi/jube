@@ -22,9 +22,15 @@ export default function Homepage() {
     }
   }
 
+  const WAIT_TIME = 5000;
+
   React.useEffect(() => {
-    getData();
-  }, []);
+    const datas = setInterval(() => {
+      getData();
+    }, WAIT_TIME);
+
+    return () => clearInterval(datas);
+  }, [data]);
 
   return (
     <div id="main-wrapper" className={nav ? "show" : "show menu-toggle"}>
@@ -93,6 +99,7 @@ export default function Homepage() {
         <div className="deznav-scroll">
           <ul className="metismenu" id="menu">
             <li className="nav-label first">Main Menu</li>
+
             <li className="">
               <Link
                 className="ai-icon"
@@ -100,17 +107,37 @@ export default function Homepage() {
                   pathname: "/",
                 }}
               >
-                {/* <a href="#" className="ai-icon" aria-expanded="false"> */}
                 <i className="flaticon-144-layout"></i>
                 <span className="nav-text">Dashboard</span>
+              </Link>
+            </li>
+
+            <li className="mm-active">
+              <Link
+                className="ai-icon"
+                to={{
+                  pathname: "/products",
+                }}
+              >
+                {/* <a href="#" className="ai-icon" aria-expanded="false"> */}
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Products</span>
                 {/* </a> */}
               </Link>
             </li>
-            <li className="mm-active">
-              <a href="#" className="ai-icon" aria-expanded="false">
-                <i className="flaticon-077-menu-1"></i>
-                <span className="nav-text">Products</span>
-              </a>
+
+            <li className="">
+              <Link
+                className="ai-icon"
+                to={{
+                  pathname: "/inventory",
+                }}
+              >
+                {/* <a href="#" className="ai-icon" aria-expanded="false"> */}
+                <i className="flaticon-061-puzzle"></i>
+                <span className="nav-text">Inventory</span>
+                {/* </a> */}
+              </Link>
             </li>
 
             {/* <li>
@@ -192,7 +219,7 @@ export default function Homepage() {
                           </th>
                         </tr>
                       </thead>
-                      {data.slice(0, 1).map((datas, index) => (
+                      {data.map((datas, index) => (
                         <tbody key={index}>
                           <tr>
                             <td>

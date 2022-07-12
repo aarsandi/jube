@@ -397,9 +397,7 @@ export default function Inventory() {
                           <div className="row mt-4 align-items-center">
                             <div className="col-lg-6">
                               <div>
-                                <p className="mb-0 fs-14">
-                                  HAHAHAHAHAHHAHA PUTRI
-                                </p>
+                                <p className="mb-0 fs-14"></p>
                               </div>
                             </div>
                             <div className="col-lg-6">

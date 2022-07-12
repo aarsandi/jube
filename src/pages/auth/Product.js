@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 export default function Homepage() {
   const [nav, setNav] = useState(true);
+  const [nav1, setNav1] = useState(true);
+  const [nav2, setNav2] = useState(true);
   const [data, setData] = useState([]);
 
   async function getData() {
@@ -124,6 +126,35 @@ export default function Homepage() {
                 <span className="nav-text">Products</span>
                 {/* </a> */}
               </Link>
+            </li>
+            
+            <li className={nav1 ? "" : "mm-active"} onClick={() => { setNav1(!nav1); }} >
+                <a className="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i className="flaticon-077-menu-1"></i> <span className="nav-text">Items</span>
+                </a>
+                </li>
+                <li>
+                <ul aria-expanded="false"  className={nav1 ? "mm-collapse" : "mm-collapse mm-show"}>
+                    <li className={nav2 ? "" : "mm-active"} onClick={() => { setNav2(!nav2); }} >
+                        <a className="has-arrow" href="javascript:void(0);" aria-expanded="false">Catalog</a>
+                        <ul aria-expanded="false" className={nav2 ? "left mm-collapse" : "left mm-collapse mm-show"} onClick={() => { setNav2(!nav2); }} >
+                            <li><Link to={{ pathname: "/503", }} >In Review</Link></li>
+                            <li><Link to={{ pathname: "/503", }} >Master</Link></li>
+                            <li><Link to={{ pathname: "/503", }} >Online</Link></li>
+                            <li><Link to={{ pathname: "/503", }} >Variation</Link></li>
+                            <li><Link to={{ pathname: "/503", }} >Archives</Link></li>
+                            <li><Link to={{ pathname: "/503", }} >Failed Upload</Link></li>
+                            <li><Link to={{ pathname: "/503", }} >Category</Link></li>
+                            <li><Link to={{ pathname: "/503", }} >Map Category</Link></li>
+                        </ul>
+                    </li>
+                    <li><Link to={{ pathname: "/503", }} >Supply</Link></li>
+                    <li><Link to={{ pathname: "/503", }} >Price</Link></li>
+                    <li><Link to={{ pathname: "/503", }} >Promotion</Link></li>
+                    <li><Link to={{ pathname: "/503", }} >Bundle</Link></li>
+                    <li><Link to={{ pathname: "/503", }} >Shelf</Link></li>
+                    <li><Link to={{ pathname: "/503", }} >Activity</Link></li>
+                </ul>
             </li>
 
             <li className="">

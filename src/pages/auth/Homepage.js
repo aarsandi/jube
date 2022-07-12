@@ -104,27 +104,30 @@ export default function Homepage() {
             
             <li className={nav1 ? "" : "mm-active"} onClick={() => { setNav1(!nav1); }} >
               <a className="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                <i className="flaticon-077-menu-1"></i> <span className="nav-text">Barang</span>
+                <i className="flaticon-077-menu-1"></i> <span className="nav-text">Items</span>
               </a>
             </li>
             <li>
               <ul aria-expanded="false"  className={nav1 ? "mm-collapse" : "mm-collapse mm-show"}>
-                  <li><a href="app-profile.html">Profile</a></li>
                   <li className={nav2 ? "" : "mm-active"} onClick={() => { setNav2(!nav2); }} >
-                      <a className="has-arrow" href="javascript:void(0);" aria-expanded="false">Project<span className="badge badge-xs badge-danger">New</span></a>
+                      <a className="has-arrow" href="javascript:void(0);" aria-expanded="false">Catalog</a>
                       <ul aria-expanded="false" className={nav2 ? "left mm-collapse" : "left mm-collapse mm-show"} onClick={() => { setNav2(!nav2); }} >
-                          <li><a href="project-list.html">Project List</a></li>
-                          <li><a href="project-card.html">Project Card</a></li>
+                          <li><Link to={{ pathname: "/503", }} >In Review</Link></li>
+                          <li><Link to={{ pathname: "/503", }} >Master</Link></li>
+                          <li><Link to={{ pathname: "/503", }} >Online</Link></li>
+                          <li><Link to={{ pathname: "/503", }} >Variation</Link></li>
+                          <li><Link to={{ pathname: "/503", }} >Archives</Link></li>
+                          <li><Link to={{ pathname: "/503", }} >Failed Upload</Link></li>
+                          <li><Link to={{ pathname: "/503", }} >Category</Link></li>
+                          <li><Link to={{ pathname: "/503", }} >Map Category</Link></li>
                       </ul>
                   </li>
-
-                  <li className={nav2 ? "" : "mm-active"} onClick={() => { setNav2(!nav2); }} >
-                      <a className="has-arrow" href="javascript:void(0);" aria-expanded="false">User<span className="badge badge-xs badge-danger">New</span></a>
-                      <ul aria-expanded="false" className={nav2 ? "left mm-collapse" : "left mm-collapse mm-show"} >
-                          <li><a href="user-list-datatable.html">User List</a></li>
-                          <li><a href="user-list-column.html">User Card</a></li>
-                      </ul>
-                  </li>
+                  <li><Link to={{ pathname: "/503", }} >Supply</Link></li>
+                  <li><Link to={{ pathname: "/503", }} >Price</Link></li>
+                  <li><Link to={{ pathname: "/503", }} >Promotion</Link></li>
+                  <li><Link to={{ pathname: "/503", }} >Bundle</Link></li>
+                  <li><Link to={{ pathname: "/503", }} >Shelf</Link></li>
+                  <li><Link to={{ pathname: "/503", }} >Activity</Link></li>
               </ul>
           </li>
 

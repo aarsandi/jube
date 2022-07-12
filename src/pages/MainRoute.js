@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Homepage from "./auth/Homepage";
 import Product from "./auth/Product";
+import Error503 from "./auth/Error503";
 import Login from "./auth/Login";
 import Inventory from "./auth/Inventory";
 
@@ -10,6 +11,9 @@ export default function MainRoute() {
   return (
     <Router>
       <Switch>
+        <Route exact path="/503">
+          <Error503 />
+        </Route>
         <Route exact path="/products">
           <Product />
         </Route>

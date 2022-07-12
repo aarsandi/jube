@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Chart from "react-apexcharts";
 
-export default function Inventory() {
+export default function Analytics() {
   const [nav, setNav] = useState(true);
   const [chart] = useState({
     options: {
@@ -22,6 +22,19 @@ export default function Inventory() {
   });
 
   return (
+    // <div style={{ position: "relative" }}>
+    //   <DeckGL
+    //     initialViewState={INITIAL_VIEW_STATE}
+    //     controller={true}
+    //     layers={layers}
+    //   >
+    //     <Map
+    //       style={{ width: 600, height: 400 }}
+    //       initialViewState={INITIAL_VIEW_STATE}
+    //       mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
+    //     />
+    //   </DeckGL>
+    // </div>
     <div id="main-wrapper" className={nav ? "show" : "show menu-toggle"}>
       <div className="nav-header ">
         <a href="#" className="brand-logo">
@@ -50,6 +63,28 @@ export default function Inventory() {
             className="brand-title"
             width="74"
             height="22"
+            viewBox="0 0 103 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.048 23.192C11.336 23.192 13.576 20.856 13.576 16.12V0.599998H3.048V2.648H11.24V16.216C11.24 19.512 9.832 21.144 7.08 21.144C5.096 21.144 3.464 20.184 2.248 18.392L0.84 19.992C2.216 22.04 4.52 23.192 7.048 23.192ZM20.6793 23H23.0473V0.599998H20.6793V23Z"
+              fill="black"
+            />
+            <path
+              d="M44.4475 11.448C46.4955 10.616 47.8715 8.92 47.8715 6.36C47.8715 2.712 44.9915 0.599998 39.9995 0.599998H30.3355V23H40.6395C46.2395 23 49.0555 20.824 49.0555 17.016C49.0555 13.976 47.3275 12.088 44.4475 11.448ZM39.8395 2.552C43.4235 2.552 45.5035 3.928 45.5035 6.616C45.5035 9.304 43.4235 10.68 39.8395 10.68H32.7035V2.552H39.8395ZM40.6075 21.048H32.7035V12.632H40.6075C44.5435 12.632 46.6875 13.912 46.6875 16.824C46.6875 19.768 44.5435 21.048 40.6075 21.048ZM64.2525 23.192C70.9725 23.192 75.9965 18.36 75.9965 11.8C75.9965 5.24 70.9725 0.407999 64.2525 0.407999C57.4685 0.407999 52.4765 5.272 52.4765 11.8C52.4765 18.328 57.4685 23.192 64.2525 23.192ZM64.2525 21.08C58.8445 21.08 54.8125 17.144 54.8125 11.8C54.8125 6.456 58.8445 2.52 64.2525 2.52C69.6285 2.52 73.6285 6.456 73.6285 11.8C73.6285 17.144 69.6285 21.08 64.2525 21.08ZM91.0963 23.192C97.8163 23.192 102.84 18.36 102.84 11.8C102.84 5.24 97.8163 0.407999 91.0963 0.407999C84.3123 0.407999 79.3203 5.272 79.3203 11.8C79.3203 18.328 84.3123 23.192 91.0963 23.192ZM91.0963 21.08C85.6883 21.08 81.6562 17.144 81.6562 11.8C81.6562 6.456 85.6883 2.52 91.0963 2.52C96.4722 2.52 100.472 6.456 100.472 11.8C100.472 17.144 96.4722 21.08 91.0963 21.08Z"
+              fill="#FFA500"
+            />
+            <path
+              d="M44.4475 11.448C46.4955 10.616 47.8715 8.92 47.8715 6.36C47.8715 2.712 44.9915 0.599998 39.9995 0.599998H30.3355V23H40.6395C46.2395 23 49.0555 20.824 49.0555 17.016C49.0555 13.976 47.3275 12.088 44.4475 11.448ZM39.8395 2.552C43.4235 2.552 45.5035 3.928 45.5035 6.616C45.5035 9.304 43.4235 10.68 39.8395 10.68H32.7035V2.552H39.8395ZM40.6075 21.048H32.7035V12.632H40.6075C44.5435 12.632 46.6875 13.912 46.6875 16.824C46.6875 19.768 44.5435 21.048 40.6075 21.048ZM64.2525 23.192C70.9725 23.192 75.9965 18.36 75.9965 11.8C75.9965 5.24 70.9725 0.407999 64.2525 0.407999C57.4685 0.407999 52.4765 5.272 52.4765 11.8C52.4765 18.328 57.4685 23.192 64.2525 23.192ZM64.2525 21.08C58.8445 21.08 54.8125 17.144 54.8125 11.8C54.8125 6.456 58.8445 2.52 64.2525 2.52C69.6285 2.52 73.6285 6.456 73.6285 11.8C73.6285 17.144 69.6285 21.08 64.2525 21.08ZM91.0963 23.192C97.8163 23.192 102.84 18.36 102.84 11.8C102.84 5.24 97.8163 0.407999 91.0963 0.407999C84.3123 0.407999 79.3203 5.272 79.3203 11.8C79.3203 18.328 84.3123 23.192 91.0963 23.192ZM91.0963 21.08C85.6883 21.08 81.6562 17.144 81.6562 11.8C81.6562 6.456 85.6883 2.52 91.0963 2.52C96.4722 2.52 100.472 6.456 100.472 11.8C100.472 17.144 96.4722 21.08 91.0963 21.08Z"
+              fill="black"
+              fill-opacity="0.2"
+            />
+          </svg>
+          {/* <svg
+            className="brand-title"
+            width="74"
+            height="22"
             viewBox="0 0 74 22"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +94,7 @@ export default function Inventory() {
               d="M0.784 17.556L10.92 5.152H1.176V1.12H16.436V4.564L6.776 16.968H16.548V21H0.784V17.556ZM25.7399 21.28C24.0785 21.28 22.6599 20.9347 21.4839 20.244C20.3079 19.5533 19.4025 18.6387 18.7679 17.5C18.1519 16.3613 17.8439 15.1293 17.8439 13.804C17.8439 12.3853 18.1519 11.088 18.7679 9.912C19.3839 8.736 20.2799 7.79333 21.4559 7.084C22.6319 6.37467 24.0599 6.02 25.7399 6.02C27.4012 6.02 28.8199 6.37467 29.9959 7.084C31.1719 7.79333 32.0585 8.72667 32.6559 9.884C33.2719 11.0413 33.5799 12.2827 33.5799 13.608C33.5799 14.1493 33.5425 14.6253 33.4679 15.036H22.6039C22.6785 16.0253 23.0332 16.7813 23.6679 17.304C24.3212 17.808 25.0585 18.06 25.8799 18.06C26.5332 18.06 27.1585 17.9013 27.7559 17.584C28.3532 17.2667 28.7639 16.8373 28.9879 16.296L32.7959 17.36C32.2172 18.5173 31.3119 19.46 30.0799 20.188C28.8665 20.916 27.4199 21.28 25.7399 21.28ZM22.4919 12.292H28.8759C28.7825 11.3587 28.4372 10.6213 27.8399 10.08C27.2612 9.52 26.5425 9.24 25.6839 9.24C24.8252 9.24 24.0972 9.52 23.4999 10.08C22.9212 10.64 22.5852 11.3773 22.4919 12.292ZM49.7783 21H45.2983V12.74C45.2983 11.7693 45.1116 11.0693 44.7383 10.64C44.3836 10.192 43.9076 9.968 43.3103 9.968C42.6943 9.968 42.069 10.2107 41.4343 10.696C40.7996 11.1813 40.3516 11.8067 40.0903 12.572V21H35.6103V6.3H39.6423V8.764C40.1836 7.90533 40.949 7.23333 41.9383 6.748C42.9276 6.26267 44.0663 6.02 45.3543 6.02C46.3063 6.02 47.0716 6.19733 47.6503 6.552C48.2476 6.888 48.6956 7.336 48.9943 7.896C49.3116 8.43733 49.517 9.03467 49.6103 9.688C49.7223 10.3413 49.7783 10.976 49.7783 11.592V21ZM52.7548 4.62V0.559999H57.2348V4.62H52.7548ZM52.7548 21V6.3H57.2348V21H52.7548ZM63.4657 6.3L66.0697 10.444L66.3497 10.976L66.6297 10.444L69.2337 6.3H73.8537L68.9257 13.608L73.9657 21H69.3457L66.6017 16.884L66.3497 16.352L66.0977 16.884L63.3537 21H58.7337L63.7737 13.692L58.8457 6.3H63.4657Z"
               fill="black"
             />
-          </svg>
+          </svg> */}
         </a>
 
         <div className="nav-control">
@@ -122,11 +157,11 @@ export default function Inventory() {
               <Link
                 className="ai-icon"
                 to={{
-                  pathname: "/inventory",
+                  pathname: "/Analytics",
                 }}
               >
                 <i className="flaticon-061-puzzle"></i>
-                <span className="nav-text">Inventory</span>
+                <span className="nav-text">Analytics</span>
               </Link>
             </li>
 
@@ -187,7 +222,7 @@ export default function Inventory() {
       <div className="content-body">
         <div className="container-fluid">
           <div className="form-head mb-sm-5 mb-3 d-flex flex-wrap align-items-center">
-            <h2 className="font-w600 title mb-2 mr-auto ">Inventory</h2>
+            <h2 className="font-w600 title mb-2 mr-auto ">Analytics</h2>
           </div>
           <div className="row">
             <div className="col-xl-9 col-xxl-8">
@@ -196,7 +231,7 @@ export default function Inventory() {
                   <div className="mb-3">
                     <h4 className="fs-20 text-black"></h4>
                     <p className="mb-0 fs-12 text-black">
-                      Summary of Inventory Updated as per Today
+                      Summary of Analytics Updated as per Today
                     </p>
                   </div>
                   <div className="d-flex flex-wrap mb-2">
@@ -262,9 +297,9 @@ export default function Inventory() {
                     </div>
                   </div>
                   <select className="style-1 btn-secondary default-select">
-                    <option>Weekly (2021)</option>
-                    <option>Daily (2021)</option>
-                    <option>Yearly (2021)</option>
+                    <option>Weekly (2022)</option>
+                    <option>Daily (2022)</option>
+                    <option>Yearly (2022)</option>
                   </select>
                 </div>
                 <div className="card-body pb-2 px-3">
@@ -287,10 +322,8 @@ export default function Inventory() {
                   <div className="card">
                     <div className="card-header d-sm-flex d-block pb-0 border-0">
                       <div>
-                        <h4 className="fs-20 text-black">Quick Trade</h4>
-                        <p className="mb-0 fs-12">
-                          Lorem ipsum dolor sit amet, consectetur
-                        </p>
+                        <h4 className="fs-20 text-black">Market Progress</h4>
+                        <p className="mb-0 fs-12">Summary of your Market</p>
                       </div>
                       <div className="dropdown custom-dropdown d-block mt-3 mt-sm-0 mb-0">
                         <div
@@ -321,7 +354,7 @@ export default function Inventory() {
                             />
                           </svg>
                           <span className="text-black fs-16">
-                            Yearly (2021)
+                            Yearly (2022)
                           </span>
                           <i className="fa fa-angle-down text-black scale3 ml-2"></i>
                         </div>
@@ -337,7 +370,13 @@ export default function Inventory() {
                     </div>
                     <div className="card-body">
                       <div className="basic-form">
-                        <form className="form-wrapper">
+                        <Chart
+                          options={chart.options}
+                          series={chart.series}
+                          type="area"
+                          width="100%"
+                        />
+                        {/* <form className="form-wrapper">
                           <div className="form-group">
                             <div className="input-group input-group-lg">
                               <div className="input-group-prepend">
@@ -445,7 +484,7 @@ export default function Inventory() {
                               </div>
                             </div>
                           </div>
-                        </form>
+                        </form> */}
                       </div>
                     </div>
                   </div>
@@ -461,7 +500,7 @@ export default function Inventory() {
                       alt=""
                     />
                     <div className="card-info">
-                      <p className="mb-1 text-white fs-14">Main Balance</p>
+                      <p className="mb-1 text-white fs-14">Net Income</p>
                       <div className="d-flex justify-content-between">
                         <h2 className="num-text text-white mb-5 font-w600">
                           Rp 673,412.66
@@ -494,7 +533,7 @@ export default function Inventory() {
                         </div>
                         <div className="text-white">
                           <p className="fs-12 mb-1 op6">CARD HOLDER</p>
-                          <span>Marquezz Silalahi</span>
+                          <span>PT Kognitif Skema Indonesia</span>
                         </div>
                       </div>
                     </div>
@@ -507,7 +546,7 @@ export default function Inventory() {
                       alt=""
                     />
                     <div className="card-info">
-                      <p className="fs-14 mb-1 text-white">Main Balance</p>
+                      <p className="fs-14 mb-1 text-white">Gross Income</p>
                       <div className="d-flex justify-content-between">
                         <h2 className="num-text text-white mb-5 font-w600">
                           Rp 673,412.66
@@ -542,7 +581,7 @@ export default function Inventory() {
                         </div>
                         <div className="text-white">
                           <p className="fs-12 mb-1 op6">CARD HOLDER</p>
-                          <span>Marquezz Silalahi</span>
+                          <span>PT Kognitif Skema Indonesia</span>
                         </div>
                       </div>
                     </div>
@@ -555,7 +594,7 @@ export default function Inventory() {
                       alt=""
                     />
                     <div className="card-info">
-                      <p className="mb-1 text-white fs-14">Main Balance</p>
+                      <p className="mb-1 text-white fs-14">Profit</p>
                       <div className="d-flex justify-content-between">
                         <h2 className="num-text text-white mb-5 font-w600">
                           Rp 673,412.66
@@ -590,7 +629,7 @@ export default function Inventory() {
                         </div>
                         <div className="text-white">
                           <p className="fs-12 mb-1 op6">CARD HOLDER</p>
-                          <span>Marquezz Silalahi</span>
+                          <span>PT Kognitif Skema Indonesia</span>
                         </div>
                       </div>
                     </div>
@@ -603,7 +642,7 @@ export default function Inventory() {
                       alt=""
                     />
                     <div className="card-info">
-                      <p className="mb-1 text-white fs-14">Main Balance</p>
+                      <p className="mb-1 text-white fs-14">Loss</p>
                       <div className="d-flex justify-content-between">
                         <h2 className="num-text text-white mb-5 font-w600">
                           Rp 673,412.66
@@ -638,7 +677,7 @@ export default function Inventory() {
                         </div>
                         <div className="text-white">
                           <p className="fs-12 mb-1 op6">CARD HOLDER</p>
-                          <span>Marquezz Silalahi</span>
+                          <span>PT Kognitif Skema Indonesia</span>
                         </div>
                       </div>
                     </div>

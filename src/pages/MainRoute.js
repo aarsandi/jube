@@ -5,7 +5,7 @@ import Homepage from "./auth/Homepage";
 import Product from "./auth/Product";
 import Error503 from "./auth/Error503";
 import Login from "./auth/Login";
-import Inventory from "./auth/Inventory";
+import Analytics from "./auth/Analytics";
 
 export default function MainRoute() {
   return (
@@ -17,8 +17,8 @@ export default function MainRoute() {
         <Route exact path="/products">
           <Product />
         </Route>
-        <Route path="/inventory">
-          <Inventory />
+        <Route path="/Analytics">
+          <Analytics />
         </Route>
         <Route path="/login">
           <Login />

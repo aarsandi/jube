@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useToggleView from "../../Hooks/toggleView";
 
 export default function Homepage() {
   const [nav, setNav] = useState(true);
   const [nav1, setNav1] = useState(true);
   const [nav2, setNav2] = useState(true);
+  const [wareHouse, setWareHouse] = useState(true);
+  const [wareHouse1, setWareHouse1] = useState(true);
+  const [Accounting, setAccounting] = useState(true);
+  const [Accounting1, setAccounting1] = useState(true);
+  const Report = useToggleView(true)
+  const ReportChild = useToggleView(true)
+  const Integration = useToggleView(true)
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -15,7 +23,7 @@ export default function Homepage() {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJiZWFyZXIiLCJzdWIiOjE0MiwiaWF0IjoxNjU3MDEwNjYzLCJleHAiOjE2NTc2MTU0NjN9.zKLy8KXvst0SCG5bNRXXkqYEfpnqa1A9LeCzICDGLQI",
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJiZWFyZXIiLCJzdWIiOjE0MiwiaWF0IjoxNjU3NzIxMzk4LCJleHAiOjE2NTgzMjYxOTh9.CKopJXK3-akictmvgLmcl1r3w4leq-1TzKLMgPkcMZU",
         },
       });
       const json = await res.json();
@@ -28,20 +36,23 @@ export default function Homepage() {
   console.log(data);
 
   const WAIT_TIME = 5000;
+    React.useEffect(() => {
+      getData()
+    },[])
 
-  React.useEffect(() => {
-    const dataCheck = () => {
-      if (data.length > 0) {
-        const datas = setInterval(() => {
-          getData();
-        }, WAIT_TIME);
-        return () => clearInterval(datas);
-      } else {
-        return;
-      }
-    };
-    return () => dataCheck;
-  }, [data]);
+  // React.useEffect(() => {
+  //   const dataCheck = () => {
+  //     if (data.length > 0) {
+  //       const datas = setInterval(() => {
+  //         getData();
+  //       }, WAIT_TIME);
+  //       return () => clearInterval(datas);
+  //     } else {
+  //       return;
+  //     }
+  //   };
+  //   return () => dataCheck;
+  // }, [data]);
 
   return (
     <div id="main-wrapper" className={nav ? "show" : "show menu-toggle"}>
@@ -118,7 +129,6 @@ export default function Homepage() {
         <div className="deznav-scroll">
           <ul className="metismenu" id="menu">
             <li className="nav-label first">Main Menu</li>
-
             <li className="">
               <Link
                 className="ai-icon"
@@ -138,10 +148,8 @@ export default function Homepage() {
                   pathname: "/products",
                 }}
               >
-                {/* <a href="#" className="ai-icon" aria-expanded="false"> */}
                 <i className="flaticon-077-menu-1"></i>
                 <span className="nav-text">Products</span>
-                {/* </a> */}
               </Link>
             </li>
 
@@ -234,69 +242,164 @@ export default function Homepage() {
               </ul>
             </li>
 
-            <li className="">
-              <Link
-                className="ai-icon"
-                to={{
-                  pathname: "/Analytics",
-                }}
-              >
-                {/* <a href="#" className="ai-icon" aria-expanded="false"> */}
-                <i className="flaticon-061-puzzle"></i>
-                <span className="nav-text">Analytics</span>
-                {/* </a> */}
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Orders</span>
               </Link>
             </li>
 
-            {/* <li>
-                            <a href="#" className="ai-icon" aria-expanded="false">
-                                <i className="flaticon-061-puzzle"></i>
-                                <span className="nav-text">Charts</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" className="ai-icon" aria-expanded="false">
-                                <i className="flaticon-003-diamond"></i>
-                                <span className="nav-text">Bootstrap</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" className="ai-icon" aria-expanded="false">
-                                <i className="flaticon-053-heart"></i>
-                                <span className="nav-text">Plugins</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" className="ai-icon" aria-expanded="false">
-                                <i className="flaticon-381-settings-2"></i>
-                                <span className="nav-text">Widget</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" className="ai-icon" aria-expanded="false">
-                                <i className="flaticon-044-file"></i>
-                                <span className="nav-text">Forms</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" className="ai-icon" aria-expanded="false">
-                                <i className="flaticon-381-network"></i>
-                                <span className="nav-text">Table</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" className="ai-icon" aria-expanded="false">
-                                <i className="flaticon-049-copy"></i>
-                                <span className="nav-text">Pages</span>
-                            </a>
-                        </li> */}
+            <li className={wareHouse ? "" : "mm-active"} onClick={() => { setWareHouse(!wareHouse); }} >
+              <a className="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i className="flaticon-077-menu-1"></i>{" "}
+                <span className="nav-text">Warehouse</span>
+              </a>
+            </li>
+            <li>
+              <ul aria-expanded="false" className={wareHouse ? "mm-collapse" : "mm-collapse mm-show"} >
+                <li>
+                  <Link to={{ pathname: "/503" }}>Barang Masuk</Link>
+                  <Link to={{ pathname: "/503" }}>Pemrosesan Pesanan</Link>
+                  <Link to={{ pathname: "/503" }}>Barang Keluar</Link>
+                </li>
+                <li className={wareHouse1 ? "" : "mm-active"} onClick={() => { setWareHouse1(!wareHouse1); }} >
+                  <a className="has-arrow" href="javascript:void(0);" aria-expanded="false" >
+                    Pemeliaharaan Stok
+                  </a>
+                  <ul aria-expanded="false" className={ wareHouse1 ? "left mm-collapse" : "left mm-collapse mm-show" } onClick={() => { setWareHouse1(!wareHouse1); }} >
+                    <li>
+                      <Link to={{ pathname: "/503" }}>Penyesuaian Stok & Opname</Link>
+                    </li>
+                    <li>
+                      <Link to={{ pathname: "/503" }}>Internal Transfer</Link>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Pengiriman</span>
+              </Link>
+            </li>
+
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Retur Online</span>
+              </Link>
+            </li>
+
+            <li className={Accounting ? "" : "mm-active"} onClick={() => { setAccounting(!Accounting); }} >
+              <a className="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i className="flaticon-077-menu-1"></i>{" "}
+                <span className="nav-text">Accounting</span>
+              </a>
+            </li>
+            <li>
+              <ul aria-expanded="false" className={Accounting ? "mm-collapse" : "mm-collapse mm-show"} >
+                <li>
+                  <Link to={{ pathname: "/503" }}>Barang Masuk</Link>
+                  <Link to={{ pathname: "/503" }}>Pemrosesan Pesanan</Link>
+                  <Link to={{ pathname: "/503" }}>Barang Keluar</Link>
+                </li>
+                <li className={Accounting1 ? "" : "mm-active"} onClick={() => { setAccounting1(!Accounting1); }} >
+                  <a className="has-arrow" href="javascript:void(0);" aria-expanded="false" >
+                    Pemeliaharaan Stok
+                  </a>
+                  <ul aria-expanded="false" className={ Accounting1 ? "left mm-collapse" : "left mm-collapse mm-show" } onClick={() => { setAccounting1(!wareHouse1); }} >
+                    <li>
+                      <Link to={{ pathname: "/503" }}>Penyesuaian Stok & Opname</Link>
+                    </li>
+                    <li>
+                      <Link to={{ pathname: "/503" }}>Internal Transfer</Link>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Contact</span>
+              </Link>
+            </li>
+
+            <li className={Report.view ? "" : "mm-active"} onClick={ Report.onChange } >
+              <a className="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i className="flaticon-077-menu-1"></i>{" "}
+                <span className="nav-text">Report</span>
+              </a>
+            </li>
+            <li>
+              <ul aria-expanded="false" className={Report.view ? "mm-collapse" : "mm-collapse mm-show"} >
+                <li>
+                  <Link to={{ pathname: "/503" }}>Barang Masuk</Link>
+                  <Link to={{ pathname: "/503" }}>Pemrosesan Pesanan</Link>
+                  <Link to={{ pathname: "/503" }}>Barang Keluar</Link>
+                </li>
+                <li className={ReportChild.view ? "" : "mm-active"} onClick={ ReportChild.onChange } >
+                  <a className="has-arrow" href="javascript:void(0);" aria-expanded="false" >
+                    Pemeliaharaan Stok
+                  </a>
+                  <ul aria-expanded="false" className={ ReportChild.view ? "left mm-collapse" : "left mm-collapse mm-show" }>
+                    <li>
+                      <Link to={{ pathname: "/503" }}>Penyesuaian Stok & Opname</Link>
+                    </li>
+                    <li>
+                      <Link to={{ pathname: "/503" }}>Internal Transfer</Link>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Setting</span>
+              </Link>
+            </li>
+
+            <li className={Integration.view ? "" : "mm-active"} onClick={ Integration.onChange } >
+              <a className="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i className="flaticon-077-menu-1"></i>{" "}
+                <span className="nav-text">Report</span>
+              </a>
+            </li>
+            <li>
+              <ul aria-expanded="false" className={Integration.view ? "mm-collapse" : "mm-collapse mm-show"} >
+                <li>
+                  <Link to={{ pathname: "/503" }}>Setting</Link>
+                  <Link to={{ pathname: "/503" }}>Activity</Link>
+                </li>
+              </ul>
+            </li>
+
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Marketplace</span>
+              </Link>
+            </li>
+
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Help</span>
+              </Link>
+            </li>
+
           </ul>
           <div className="copyright">
             <p>
-              <strong>Jube Admin Dashboard</strong> © 2020 All Rights Reserved
+              <strong>Jube Admin Dashboard</strong> © 2021 All Rights Reserved
             </p>
             <p className="fs-12">
-              Made <span className="heart"></span> by Schema
+              Made with <span className="heart"></span> by Tamzone
             </p>
           </div>
         </div>
@@ -310,9 +413,9 @@ export default function Homepage() {
 
           <div className="row">
             <div className="col-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive">
+              <div className="card">
+                <div className="card-body">
+                  <div className="table-responsive">
                     {loading && data.length > 1 ? (
                       <div
                         style={{
@@ -337,7 +440,7 @@ export default function Homepage() {
                         <h2>loading dek...jengkel saya</h2>
                       </div>
                     ) : (
-                      <table class="table table-responsive-md">
+                      <table className="table table-responsive-md">
                         <thead>
                           <tr>
                             <th>

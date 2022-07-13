@@ -1,11 +1,37 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useToggleView from "../../Hooks/toggleView";
+import Chart from "react-apexcharts";
 
 export default function Homepage() {
   const [nav, setNav] = useState(true);
   const [nav1, setNav1] = useState(true);
   const [nav2, setNav2] = useState(true);
+  const [wareHouse, setWareHouse] = useState(true);
+  const [wareHouse1, setWareHouse1] = useState(true);
+  const [Accounting, setAccounting] = useState(true);
+  const [Accounting1, setAccounting1] = useState(true);
+  const Report = useToggleView(true)
+  const ReportChild = useToggleView(true)
+  const Integration = useToggleView(true)
 
+  const [chart] = useState({
+    options: {
+      chart: {
+        id: "basic-bar",
+      },
+      xaxis: {
+        categories: [2018, 2019, 2020, 2021, 2022],
+      },
+    },
+    series: [
+      {
+        name: "Progress Stock",
+        data: [30, 40, 45, 50, 49],
+      },
+    ],
+  });
+  
   return (
     <div id="main-wrapper" className={nav ? "show" : "show menu-toggle"}>
       <div className="nav-header ">
@@ -97,6 +123,7 @@ export default function Homepage() {
                 <span className="nav-text">Dashboard</span>
               </Link>
             </li>
+
             <li className="">
               <Link
                 className="ai-icon"
@@ -198,17 +225,157 @@ export default function Homepage() {
               </ul>
             </li>
 
-            <li className="">
-              <Link
-                className="ai-icon"
-                to={{
-                  pathname: "/Analytics",
-                }}
-              >
-                <i className="flaticon-061-puzzle"></i>
-                <span className="nav-text">Analytics</span>
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Orders</span>
               </Link>
             </li>
+
+            <li className={wareHouse ? "" : "mm-active"} onClick={() => { setWareHouse(!wareHouse); }} >
+              <a className="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i className="flaticon-077-menu-1"></i>{" "}
+                <span className="nav-text">Warehouse</span>
+              </a>
+            </li>
+            <li>
+              <ul aria-expanded="false" className={wareHouse ? "mm-collapse" : "mm-collapse mm-show"} >
+                <li>
+                  <Link to={{ pathname: "/503" }}>Barang Masuk</Link>
+                  <Link to={{ pathname: "/503" }}>Pemrosesan Pesanan</Link>
+                  <Link to={{ pathname: "/503" }}>Barang Keluar</Link>
+                </li>
+                <li className={wareHouse1 ? "" : "mm-active"} onClick={() => { setWareHouse1(!wareHouse1); }} >
+                  <a className="has-arrow" href="javascript:void(0);" aria-expanded="false" >
+                    Pemeliaharaan Stok
+                  </a>
+                  <ul aria-expanded="false" className={ wareHouse1 ? "left mm-collapse" : "left mm-collapse mm-show" } onClick={() => { setWareHouse1(!wareHouse1); }} >
+                    <li>
+                      <Link to={{ pathname: "/503" }}>Penyesuaian Stok & Opname</Link>
+                    </li>
+                    <li>
+                      <Link to={{ pathname: "/503" }}>Internal Transfer</Link>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Pengiriman</span>
+              </Link>
+            </li>
+
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Retur Online</span>
+              </Link>
+            </li>
+
+            <li className={Accounting ? "" : "mm-active"} onClick={() => { setAccounting(!Accounting); }} >
+              <a className="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i className="flaticon-077-menu-1"></i>{" "}
+                <span className="nav-text">Accounting</span>
+              </a>
+            </li>
+            <li>
+              <ul aria-expanded="false" className={Accounting ? "mm-collapse" : "mm-collapse mm-show"} >
+                <li>
+                  <Link to={{ pathname: "/503" }}>Barang Masuk</Link>
+                  <Link to={{ pathname: "/503" }}>Pemrosesan Pesanan</Link>
+                  <Link to={{ pathname: "/503" }}>Barang Keluar</Link>
+                </li>
+                <li className={Accounting1 ? "" : "mm-active"} onClick={() => { setAccounting1(!Accounting1); }} >
+                  <a className="has-arrow" href="javascript:void(0);" aria-expanded="false" >
+                    Pemeliaharaan Stok
+                  </a>
+                  <ul aria-expanded="false" className={ Accounting1 ? "left mm-collapse" : "left mm-collapse mm-show" } onClick={() => { setAccounting1(!wareHouse1); }} >
+                    <li>
+                      <Link to={{ pathname: "/503" }}>Penyesuaian Stok & Opname</Link>
+                    </li>
+                    <li>
+                      <Link to={{ pathname: "/503" }}>Internal Transfer</Link>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Contact</span>
+              </Link>
+            </li>
+
+            <li className={Report.view ? "" : "mm-active"} onClick={ Report.onChange } >
+              <a className="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i className="flaticon-077-menu-1"></i>{" "}
+                <span className="nav-text">Report</span>
+              </a>
+            </li>
+            <li>
+              <ul aria-expanded="false" className={Report.view ? "mm-collapse" : "mm-collapse mm-show"} >
+                <li>
+                  <Link to={{ pathname: "/503" }}>Barang Masuk</Link>
+                  <Link to={{ pathname: "/503" }}>Pemrosesan Pesanan</Link>
+                  <Link to={{ pathname: "/503" }}>Barang Keluar</Link>
+                </li>
+                <li className={ReportChild.view ? "" : "mm-active"} onClick={ ReportChild.onChange } >
+                  <a className="has-arrow" href="javascript:void(0);" aria-expanded="false" >
+                    Pemeliaharaan Stok
+                  </a>
+                  <ul aria-expanded="false" className={ ReportChild.view ? "left mm-collapse" : "left mm-collapse mm-show" }>
+                    <li>
+                      <Link to={{ pathname: "/503" }}>Penyesuaian Stok & Opname</Link>
+                    </li>
+                    <li>
+                      <Link to={{ pathname: "/503" }}>Internal Transfer</Link>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Setting</span>
+              </Link>
+            </li>
+
+            <li className={Integration.view ? "" : "mm-active"} onClick={ Integration.onChange } >
+              <a className="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i className="flaticon-077-menu-1"></i>{" "}
+                <span className="nav-text">Report</span>
+              </a>
+            </li>
+            <li>
+              <ul aria-expanded="false" className={Integration.view ? "mm-collapse" : "mm-collapse mm-show"} >
+                <li>
+                  <Link to={{ pathname: "/503" }}>Setting</Link>
+                  <Link to={{ pathname: "/503" }}>Activity</Link>
+                </li>
+              </ul>
+            </li>
+
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Marketplace</span>
+              </Link>
+            </li>
+
+            <li className=""> 
+              <Link className="ai-icon" to={{ pathname: "/503", }}>
+                <i className="flaticon-077-menu-1"></i>
+                <span className="nav-text">Help</span>
+              </Link>
+            </li>
+
           </ul>
           <div className="copyright">
             <p>
@@ -227,13 +394,13 @@ export default function Homepage() {
             <h2 className="font-w600 title mb-2 mr-auto ">Dashboard</h2>
           </div>
           <div className="row">
-            <div className="col-xl-9 col-xxl-8">
+            <div className="col-12">
               <div className="card">
                 <div className="card-header border-0 flex-wrap pb-0">
                   <div className="mb-3">
-                    <h4 className="fs-20 text-black">Market Overview</h4>
+                    <h4 className="fs-20 text-black"></h4>
                     <p className="mb-0 fs-12 text-black">
-                      Summary of Market Updated as per Today
+                      Summary of Analytics Updated as per Today
                     </p>
                   </div>
                   <div className="d-flex flex-wrap mb-2">
@@ -247,7 +414,9 @@ export default function Homepage() {
                         className="custom-control-label"
                         for="customCheck9"
                       >
-                        <span className="d-block  font-w500 mt-2">Shopee</span>
+                        <span className="d-block  font-w500 mt-2">
+                          Past Stock
+                        </span>
                       </label>
                     </div>
                     <div className="custom-control check-switch custom-checkbox mr-4 mb-2">
@@ -261,7 +430,7 @@ export default function Homepage() {
                         for="customCheck91"
                       >
                         <span className="d-block  font-w500 mt-2">
-                          Tokopedia
+                          Current Stock
                         </span>
                       </label>
                     </div>
@@ -276,7 +445,7 @@ export default function Homepage() {
                         for="customCheck92"
                       >
                         <span className="d-block font-w500 mt-2">
-                          Bukalapak
+                          Upcoming Stock
                         </span>
                       </label>
                     </div>
@@ -290,122 +459,26 @@ export default function Homepage() {
                         className="custom-control-label"
                         for="customCheck93"
                       >
-                        <span className="d-block font-w500 mt-2">Lazada</span>
+                        <span className="d-block font-w500 mt-2">
+                          Stock Trend
+                        </span>
                       </label>
                     </div>
                   </div>
                   <select className="style-1 btn-secondary default-select">
-                    <option>Weekly (2021)</option>
-                    <option>Daily (2021)</option>
-                    <option>Yearly (2021)</option>
+                    <option>Weekly (2022)</option>
+                    <option>Daily (2022)</option>
+                    <option>Yearly (2022)</option>
                   </select>
                 </div>
                 <div className="card-body pb-2 px-3">
-                  <div id="marketChart" className="market-line"></div>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-xxl-4">
-              <div className="card">
-                <div className="card-header border-0 pb-0">
-                  <h4 className="fs-20 text-black">Current Statistic</h4>
-                </div>
-                <div className="card-body pb-0">
-                  <div id="currentChart" className="current-chart"></div>
-                  <div className="chart-content">
-                    <div className="d-flex justify-content-between mb-2 align-items-center">
-                      <div>
-                        <svg
-                          className="mr-2"
-                          width="15"
-                          height="15"
-                          viewBox="0 0 15 15"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            width="15"
-                            height="15"
-                            rx="7.5"
-                            fill="#EB8153"
-                          />
-                        </svg>
-                        <span className="fs-14">Income (66%)</span>
-                      </div>
-                      <div>
-                        <h5 className="mb-0">Rp 167,884.21</h5>
-                      </div>
-                    </div>
-                    <div className="d-flex justify-content-between mb-2 align-items-center">
-                      <div>
-                        <svg
-                          className="mr-2"
-                          width="15"
-                          height="15"
-                          viewBox="0 0 15 15"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            width="15"
-                            height="15"
-                            rx="7.5"
-                            fill="#71B945"
-                          />
-                        </svg>
-
-                        <span className="fs-14">Income (50%)</span>
-                      </div>
-                      <div>
-                        <h5 className="mb-0">Rp 56,411.33</h5>
-                      </div>
-                    </div>
-                    <div className="d-flex justify-content-between mb-2 align-items-center">
-                      <div>
-                        <svg
-                          className="mr-2"
-                          width="15"
-                          height="15"
-                          viewBox="0 0 15 15"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            width="15"
-                            height="15"
-                            rx="7.5"
-                            fill="#4A8CDA"
-                          />
-                        </svg>
-                        <span className="fs-14">Income (11%)</span>
-                      </div>
-                      <div>
-                        <h5 className="mb-0">Rp 81,981.22</h5>
-                      </div>
-                    </div>
-                    <div className="d-flex justify-content-between mb-2 align-items-center">
-                      <div>
-                        <svg
-                          className="mr-2"
-                          width="15"
-                          height="15"
-                          viewBox="0 0 15 15"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            width="15"
-                            height="15"
-                            rx="7.5"
-                            fill="#6647BF"
-                          />
-                        </svg>
-                        <span className="fs-14">Income (23%)</span>
-                      </div>
-                      <div>
-                        <h5 className="mb-0">Rp 12,432.51</h5>
-                      </div>
-                    </div>
+                  <div id="marketChart" className="market-line">
+                    <Chart
+                      options={chart.options}
+                      series={chart.series}
+                      type="bar"
+                      width="500"
+                    />
                   </div>
                 </div>
               </div>
@@ -418,10 +491,8 @@ export default function Homepage() {
                   <div className="card">
                     <div className="card-header d-sm-flex d-block pb-0 border-0">
                       <div>
-                        <h4 className="fs-20 text-black">Quick Trade</h4>
-                        <p className="mb-0 fs-12">
-                          Lorem ipsum dolor sit amet, consectetur
-                        </p>
+                        <h4 className="fs-20 text-black">Market Progress</h4>
+                        <p className="mb-0 fs-12">Summary of your Market</p>
                       </div>
                       <div className="dropdown custom-dropdown d-block mt-3 mt-sm-0 mb-0">
                         <div
@@ -452,7 +523,7 @@ export default function Homepage() {
                             />
                           </svg>
                           <span className="text-black fs-16">
-                            Yearly (2021)
+                            Yearly (2022)
                           </span>
                           <i className="fa fa-angle-down text-black scale3 ml-2"></i>
                         </div>
@@ -468,7 +539,13 @@ export default function Homepage() {
                     </div>
                     <div className="card-body">
                       <div className="basic-form">
-                        <form className="form-wrapper">
+                        <Chart
+                          options={chart.options}
+                          series={chart.series}
+                          type="area"
+                          width="100%"
+                        />
+                        {/* <form className="form-wrapper">
                           <div className="form-group">
                             <div className="input-group input-group-lg">
                               <div className="input-group-prepend">
@@ -528,11 +605,7 @@ export default function Homepage() {
                           <div className="row mt-4 align-items-center">
                             <div className="col-lg-6">
                               <div>
-                                <p className="mb-0 fs-14">
-                                  Lorem ipsum dolor sit amet, consectetur
-                                  adipiscing elit, sed do eiusmod tempor
-                                  incididunt ut
-                                </p>
+                                <p className="mb-0 fs-14"></p>
                               </div>
                             </div>
                             <div className="col-lg-6">
@@ -580,7 +653,7 @@ export default function Homepage() {
                               </div>
                             </div>
                           </div>
-                        </form>
+                        </form> */}
                       </div>
                     </div>
                   </div>
@@ -596,7 +669,7 @@ export default function Homepage() {
                       alt=""
                     />
                     <div className="card-info">
-                      <p className="mb-1 text-white fs-14">Main Balance</p>
+                      <p className="mb-1 text-white fs-14">Net Income</p>
                       <div className="d-flex justify-content-between">
                         <h2 className="num-text text-white mb-5 font-w600">
                           Rp 673,412.66
@@ -642,7 +715,7 @@ export default function Homepage() {
                       alt=""
                     />
                     <div className="card-info">
-                      <p className="fs-14 mb-1 text-white">Main Balance</p>
+                      <p className="fs-14 mb-1 text-white">Gross Income</p>
                       <div className="d-flex justify-content-between">
                         <h2 className="num-text text-white mb-5 font-w600">
                           Rp 673,412.66
@@ -690,7 +763,7 @@ export default function Homepage() {
                       alt=""
                     />
                     <div className="card-info">
-                      <p className="mb-1 text-white fs-14">Main Balance</p>
+                      <p className="mb-1 text-white fs-14">Profit</p>
                       <div className="d-flex justify-content-between">
                         <h2 className="num-text text-white mb-5 font-w600">
                           Rp 673,412.66
@@ -738,7 +811,7 @@ export default function Homepage() {
                       alt=""
                     />
                     <div className="card-info">
-                      <p className="mb-1 text-white fs-14">Main Balance</p>
+                      <p className="mb-1 text-white fs-14">Loss</p>
                       <div className="d-flex justify-content-between">
                         <h2 className="num-text text-white mb-5 font-w600">
                           Rp 673,412.66

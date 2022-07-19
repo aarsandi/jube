@@ -463,7 +463,7 @@ export default function Homepage() {
                                   <strong>{datas.id}</strong>
                                 </td>
                                 <td>{datas.name}</td>
-                                <td>{datas.stock}</td>
+                                <td>{datas.stock.toLocaleString(undefined, {maximumFractionDigits:2})}</td>
                               </tr>
                             </tbody>
                           );

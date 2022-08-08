@@ -18,12 +18,10 @@ export default function Homepage() {
 
   async function getData() {
     try {
-      const res = await fetch("http://141.136.47.149/management/products", {
+      const res = await fetch("http://jiboo-redis-rds-autoscale-alb-1-582624195.ap-southeast-3.elb.amazonaws.com/product", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJiZWFyZXIiLCJzdWIiOjE0MiwiaWF0IjoxNjU3NzIxMzk4LCJleHAiOjE2NTgzMjYxOTh9.CKopJXK3-akictmvgLmcl1r3w4leq-1TzKLMgPkcMZU",
         },
       });
       const json = await res.json();
@@ -33,26 +31,11 @@ export default function Homepage() {
       console.log(error);
     }
   }
-  console.log(data);
 
   const WAIT_TIME = 5000;
     React.useEffect(() => {
       getData()
     },[])
-
-  // React.useEffect(() => {
-  //   const dataCheck = () => {
-  //     if (data.length > 0) {
-  //       const datas = setInterval(() => {
-  //         getData();
-  //       }, WAIT_TIME);
-  //       return () => clearInterval(datas);
-  //     } else {
-  //       return;
-  //     }
-  //   };
-  //   return () => dataCheck;
-  // }, [data]);
 
   return (
     <div id="main-wrapper" className={nav ? "show" : "show menu-toggle"}>
@@ -416,30 +399,6 @@ export default function Homepage() {
               <div className="card">
                 <div className="card-body">
                   <div className="table-responsive">
-                    {loading && data.length > 1 ? (
-                      <div
-                        style={{
-                          justifyContent: "center",
-                          alignItems: "center",
-                          flex: 1,
-                          display: "flex",
-                          flexDirection: "column",
-                          objectFit: "contain",
-                        }}
-                      >
-                        <img
-                          src={require("../../assets/Unknown.jpg")}
-                          style={{
-                            height: 200,
-                            width: 200,
-                            boxSizing: "border-box",
-                            resize: "block",
-                          }}
-                          alt="kus"
-                        />
-                        <h2>loading dek...jengkel saya</h2>
-                      </div>
-                    ) : (
                       <table className="table table-responsive-md">
                         <thead>
                           <tr>
@@ -460,16 +419,15 @@ export default function Homepage() {
                             <tbody key={index}>
                               <tr>
                                 <td>
-                                  <strong>{datas.id}</strong>
+                                  <strong>{datas.product_id}</strong>
                                 </td>
-                                <td>{datas.name}</td>
-                                <td>{datas.stock.toLocaleString(undefined, {maximumFractionDigits:2})}</td>
+                                <td>{datas.product_name}</td>
+                                <td>{datas.product_stock.toLocaleString(undefined, {maximumFractionDigits:2})}</td>
                               </tr>
                             </tbody>
                           );
                         })}
                       </table>
-                    )}
                   </div>
                 </div>
               </div>

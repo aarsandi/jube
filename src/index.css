@@ -9399,9 +9399,9 @@ a {
         padding-right: 0;
         justify-content: center; } }
   .nav-header .brand-title {
-    margin-left: 20px;
+    margin-left: 17px;
     max-width: 120px;
-    margin-top: 0px; }
+    margin-top: 6px; }
     [data-theme-version="dark"] .nav-header .brand-title {
       background-position: 0 120%; }
 
